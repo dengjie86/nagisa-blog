@@ -1,0 +1,4 @@
+.sync-bar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:20px;padding:12px 16px;background:#edf3ed;border:1px solid #dce6d8;border-radius:9px;font-size:12px}
+.sync-info{min-width:0}.sync-title{display:block;color:#315c47;font-weight:600}.sync-detail{display:block;color:#7b8774;font-size:11px;margin-top:2px}.sync-bar .btn{white-space:nowrap;padding:7px 12px;font-size:11px;background:#fff9}
+.sync-bar[data-state="offline"],.sync-bar[data-state="error"]{background:#fbf4e6;border-color:#e7dac0}.sync-bar[data-state="offline"] .sync-title,.sync-bar[data-state="error"] .sync-title{color:#976b36}
+@media(max-width:700px){.sync-bar{margin-top:15px;padding:11px 12px;gap:10px}.sync-detail{font-size:10px;line-height:1.6}}

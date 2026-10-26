@@ -14,6 +14,7 @@
 @media(max-width:700px){.app{display:block}.sidebar{position:static;height:auto;padding:17px 18px 12px;border-right:0;border-bottom:1px solid var(--line)}.brand strong{font-size:21px}.logo{width:35px;height:37px;font-size:21px}.brand small{font-size:8px}.side-label,.side-bottom{display:none}.nav{display:flex;overflow:auto;gap:6px;margin-top:15px;padding-bottom:3px}.nav button{white-space:nowrap;padding:7px 10px;gap:5px;font-size:12px}.nav .count{padding:0 4px}.nav-icon{font-size:14px;width:16px}main{padding:18px 16px 35px}.topbar{padding-bottom:14px;font-size:10px}.edition{font-size:9px;letter-spacing:0}.intro{margin:23px 0 20px}h1{font-size:25px}.intro p{font-size:12px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:22px;gap:7px}.stat{padding:11px 9px;border-radius:9px}.stat .num{font-size:21px}.stat .label{font-size:10px}.stat .mini{display:none}.stat .unit{margin-left:3px;font-size:9px}.filters{gap:8px}.select-wrap{gap:4px;font-size:11px}.select-wrap select{font-size:11px;max-width:128px;padding:7px}.order{font-size:11px}.card{padding:19px 16px;border-radius:11px}.q-title{font-size:17px}.option{padding:12px;font-size:13px;gap:10px}.q-top{margin-bottom:17px}.source-id{font-size:10px}.btn{padding:10px 12px;font-size:12px}.actions{gap:8px}.shortcuts{display:none}.answer{padding:14px}.answer-content{font-size:13px}.right-col{gap:11px}.panel{padding:15px}.footline{font-size:10px}.bank-search{gap:7px}.bank-search input{padding:10px;font-size:13px}.bank-item{padding:14px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
+<link rel="stylesheet" href="sync.css">
 </head>
 <body>
 <div class="app">
@@ -31,11 +32,12 @@
   <div class="side-bottom">
    <div class="tip"><strong>从不会，到记得住。</strong>先读答案与要点，再遮住答案回忆。每天一点，按自己的节奏来。</div>
    <div class="storage-actions"><button class="text-btn" id="export">导出进度</button><button class="text-btn" id="import-btn">导入进度</button></div>
-   <div class="offline"><span class="dot"></span>离线可用 · 进度保存在此浏览器</div>
+   <div class="offline"><span class="dot"></span>共享进度 · 断网时先保存在本机</div>
   </div>
  </aside>
  <main>
   <div class="topbar"><div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><a href="../" aria-label="返回 Nagisa 的博客首页">← 返回博客</a><strong>入党积极分子 / 学习参考资料</strong></div><span class="edition">两份原始资料 · 完整收录</span></div>
+  <div class="sync-bar" id="sync-bar" data-state="connecting"><div class="sync-info"><span class="sync-title" id="sync-status" role="status" aria-live="polite">正在连接共享进度…</span><span class="sync-detail" id="sync-detail">所有访问者共用一份进度 · 不需要登录</span></div><button class="btn" id="sync-now">立即同步</button></div>
   <header class="intro"><div><div class="eyebrow">A LITTLE EVERY DAY</div><h1 id="page-title">先理解，再记住。</h1><p id="page-desc">不必急着答对。先读一遍要点，再试着自己回忆。</p></div><span class="badge">从第一题开始，慢慢来</span></header>
   <section class="stats" aria-label="学习统计">
    <div class="stat"><div class="label">完整题库</div><div class="num">1,121<span class="unit">题</span></div><div class="mini">党章 379 · 党史 742</div></div>
@@ -64,7 +66,7 @@
    </aside>
   </div>
   <div class="storage-actions" style="margin-top:25px"><button class="text-btn" id="help">使用说明与收录清单</button><button class="text-btn" id="export-bottom">备份进度</button><button class="text-btn" id="import-bottom">恢复进度</button></div>
-  <section id="help-panel" class="panel" hidden style="margin-top:20px"><h2>如何使用</h2><div class="panel-note" style="font-size:13px">① 初次学习用“先学后练”，读答案，再遮住答案尝试回忆。② “顺序练习”与“随机练习”需要提交后才显示答案，多选题必须与答案完全一致。③ 填空题请按空的顺序输入，用逗号或换行分隔；系统忽略空白和常见标点，词义相同但表述不同的答案请核对后自评。④ 简答、论述题对照原文要点自评，不自动评分。⑤ 答错的题自动加入错题，随后答对即可移出。查看答案本身不会算作掌握。<br><br>题库仅依据你提供的两份 PDF 整理，保留原题、原答案、重复题和原题号。答案内容是原资料答案或知识点，不是新增解析；其中四道论述题原文未附参考答案，仍完整保留，可作答并自行标记。填空后的“完整表述”由题干与答案按空位顺序拼合，仅在数量一致时显示。每题标注 PDF 物理页码。<br><br><strong>收录清单</strong><br>党章（38 页）：单选 182、多选 67、判断 60、填空 65、简答 3、论述 2，共 379 题。<br>党史（83 页）：单选 234、多选 156、判断 231、填空 90、简答 27、论述 4，共 742 题。<br><br>进度存储在当前浏览器。更换浏览器、移动 HTML 文件或清理浏览器数据可能导致无法读取旧进度，建议定期导出 JSON 备份。网页不需要联网，也不会上传你的作答内容。<br><br><button class="btn danger" id="reset-progress">清空全部练习记录</button></div></section>
+  <section id="help-panel" class="panel" hidden style="margin-top:20px"><h2>如何使用</h2><div class="panel-note" style="font-size:13px">① 初次学习用“先学后练”，读答案，再遮住答案尝试回忆。② “顺序练习”与“随机练习”需要提交后才显示答案，多选题必须与答案完全一致。③ 填空题请按空的顺序输入，用逗号或换行分隔；系统忽略空白和常见标点，词义相同但表述不同的答案请核对后自评。④ 简答、论述题对照原文要点自评，不自动评分。⑤ 答错的题自动加入错题，随后答对即可移出。查看答案本身不会算作掌握。<br><br>题库仅依据你提供的两份 PDF 整理，保留原题、原答案、重复题和原题号。答案内容是原资料答案或知识点，不是新增解析；其中四道论述题原文未附参考答案，仍完整保留，可作答并自行标记。填空后的“完整表述”由题干与答案按空位顺序拼合，仅在数量一致时显示。每题标注 PDF 物理页码。<br><br><strong>收录清单</strong><br>党章（38 页）：单选 182、多选 67、判断 60、填空 65、简答 3、论述 2，共 379 题。<br>党史（83 页）：单选 234、多选 156、判断 231、填空 90、简答 27、论述 4，共 742 题。<br><br>网站使用一份共享进度：所有设备和访问者共用答题记录、错题、收藏、草稿和最近的练习位置。打开网页、切回页面或点击“立即同步”时会同步，停留期间也会自动检查更新。断网时修改先保存在本机，联网后自动补传。不同题目的修改会合并；同一项冲突时采用较新的修改。备份和恢复进度功能仍然可用。清空记录会同时清空所有设备的共享记录。<br><br><button class="btn danger" id="reset-progress">清空全部练习记录</button></div></section>
  </main>
 </div>
 <input type="file" id="import-file" accept="application/json,.json" hidden>
@@ -84,7 +86,7 @@ if(!['all','单选题','多选题','判断题','填空题','简答题','论述�
 if(!['all','unseen','unmastered'].includes(state.settings.scope))state.settings.scope='all';
 let mode=state.settings.mode,queue=[],index=0,palettePage=0,selected=[],revealed=false,submitted=false,recalled=false,outcome='',bankPage=0,search='',toastTimer;
 function record(q){return state.records[q.id]??={star:false,seen:false,status:null,attempts:0,draft:'',last:''};}
-function save(){try{localStorage.setItem(KEY,JSON.stringify({version:1,...state}));storageOK=true;}catch{storageOK=false;}$('storage-notice').classList.toggle('hidden',storageOK);}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({version:1,...state}));storageOK=true;}catch{storageOK=false;}$('storage-notice').classList.toggle('hidden',storageOK);if(window.studySync)window.studySync.capture();}
 function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,3200);}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function baseFilter(q){const s=state.settings,r=state.records[q.id];return (s.subject==='all'||q.source===s.subject)&&(s.type==='all'||q.type===s.type)&&(s.scope==='all'||(s.scope==='unseen'?!r?.status:r?.status!=='mastered'));}
@@ -123,7 +125,7 @@ function render(){
   const classes=['option',isSelected?'selected':'',showCorrect&&correct?'correct':'',submitted&&isSelected&&!correct?'wrong':''].filter(Boolean).join(' ');
   return `<button class="${classes}" data-option="${esc(o.key)}" aria-pressed="${isSelected}" ${locked?'disabled':''}><span class="letter">${q.type==='判断题'?i+1:esc(o.key)}</span><span>${esc(o.text)}</span>${showCorrect&&correct?'<span class="result-icon" aria-label="正确答案">✓</span>':submitted&&isSelected?'<span class="result-icon" aria-label="选择错误">×</span>':''}</button>`;
  }).join('')+'</div>';}
- else{body=`<label class="sr-only" for="response">${subjective?'你的作答':'按顺序填写答案'}</label><textarea class="entry" id="response" rows="${subjective?6:3}" placeholder="${subjective?'先写下你记得的要点，再对照参考答案。':'按空位顺序输入，用逗号或换行分隔。'}" maxlength="30000" ${submitted?'readonly':''}>${esc(r.draft)}</textarea><div class="draft-note">${subjective?'草稿会自动保存在此浏览器。论述题可先列提纲，再扩写。':'系统忽略空白与常见标点；表述不同可核对后自评。'}</div>`;}
+ else{body=`<label class="sr-only" for="response">${subjective?'你的作答':'按顺序填写答案'}</label><textarea class="entry" id="response" rows="${subjective?6:3}" placeholder="${subjective?'先写下你记得的要点，再对照参考答案。':'按空位顺序输入，用逗号或换行分隔。'}" maxlength="30000" ${submitted?'readonly':''}>${esc(r.draft)}</textarea><div class="draft-note">${subjective?'草稿会自动保存并同步到共享进度。论述题可先列提纲，再扩写。':'系统忽略空白与常见标点；表述不同可核对后自评。'}</div>`;}
  const help=q.type==='多选题'?'多选题 · 选出所有正确选项后提交，少选、多选均计为待复习。':q.type==='判断题'?'判断说法是否正确。':subjective?'对照原文要点自评，不自动评分。':q.type==='填空题'?'按题干中的空位顺序作答。':'单选题 · 请选择一个答案。';
  $('question-card').innerHTML=`<div class="q-top"><div class="q-meta"><span class="pill">${esc(q.type)}</span><span class="source-id">${q.subject} · 原题 ${q.num} · 第 ${q.page}${q.endPage!==q.page?'–'+q.endPage:''} 页</span></div><button id="star-toggle" class="bookmark ${r.star?'active':''}" aria-pressed="${r.star}">${r.star?'★ 已收藏':'☆ 收藏'}</button></div><h2 class="q-title">${esc(q.prompt)}</h2><div class="q-help">${help}</div>${body}${revealed?answerHTML(q):''}<div class="actions">${mainActions(q,subjective)}<div class="right"><button class="btn" id="prev" ${index===0?'disabled':''}>上一题</button><button class="btn ${submitted?'primary':''}" id="next">${index===queue.length-1?'完成本轮':'下一题 →'}</button></div></div>`;
  $('position').textContent=`当前范围 ${queue.length} 题 · 第 ${index+1} 题 / ${queue.length} 题`;
@@ -198,9 +200,10 @@ $('help').onclick=()=>{$('help-panel').hidden=!$('help-panel').hidden;if(!$('hel
 function exportProgress(){const data={app:'wengu-study',version:1,exportedAt:new Date().toISOString(),...state};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`温故-学习进度-${new Date().toLocaleDateString('sv-SE')}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('进度已导出，请保存 JSON 文件。');}
 $('export').onclick=$('export-bottom').onclick=exportProgress;$('import-btn').onclick=$('import-bottom').onclick=()=>$('import-file').click();
 $('import-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>15*1024*1024)throw Error('备份文件过大');const v=JSON.parse(await file.text());if(v.app!=='wengu-study'||v.version!==1||!v.records||typeof v.records!=='object'||Array.isArray(v.records))throw Error('不是有效的温故进度文件');const clean=cleanRecords(v.records);if(!confirm(`导入 ${Object.keys(clean).length} 道题目的记录？同一道题会使用备份中的记录，其余现有进度保留。`))return;state.records={...state.records,...clean};save();buildQueue();toast('进度已恢复。');}catch(error){toast('导入失败：'+error.message);}finally{e.target.value='';}};
-$('reset-progress').onclick=()=>{if(!confirm('确定清空全部作答、草稿和收藏？建议先导出备份。此操作无法撤销。'))return;state.records={};state.cursor={};save();buildQueue();toast('练习记录已清空。');};
+$('reset-progress').onclick=()=>{if(!confirm('确定清空网站的共享作答、草稿和收藏？所有设备的记录都会清空。建议先导出备份。此操作无法撤销。'))return;state.records={};state.cursor={};if(window.studySync)window.studySync.reset();save();buildQueue();toast('共享练习记录已清空，正在同步。');};
 document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey||mode==='bank'||!queue.length)return;if(e.target.tagName==='BUTTON'&&['Enter',' '].includes(e.key))return;const q=queue[index];if(/^[1-8]$/.test(e.key)){const opts=q.type==='判断题'?['对','错']:q.options.map(o=>o.key);if(opts[Number(e.key)-1]){e.preventDefault();selectOption(opts[Number(e.key)-1]);}}if(e.key==='ArrowRight'){e.preventDefault();move(1);}if(e.key==='ArrowLeft'){e.preventDefault();move(-1);}if(e.key==='Enter'){e.preventDefault();if(submitted)move(1);else if(!revealed&&q.type!=='简答题'&&q.type!=='论述题')submit();}});
 buildQueue();
 </script>
+<script src="sync.js" defer></script>
 </body>
 </html>
