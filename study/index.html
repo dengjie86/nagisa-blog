@@ -14,7 +14,7 @@
 @media(max-width:700px){.app{display:block}.sidebar{position:static;height:auto;padding:17px 18px 12px;border-right:0;border-bottom:1px solid var(--line)}.brand strong{font-size:21px}.logo{width:35px;height:37px;font-size:21px}.brand small{font-size:8px}.side-label,.side-bottom{display:none}.nav{display:flex;overflow:auto;gap:6px;margin-top:15px;padding-bottom:3px}.nav button{white-space:nowrap;padding:7px 10px;gap:5px;font-size:12px}.nav .count{padding:0 4px}.nav-icon{font-size:14px;width:16px}main{padding:18px 16px 35px}.topbar{padding-bottom:14px;font-size:10px}.edition{font-size:9px;letter-spacing:0}.intro{margin:23px 0 20px}h1{font-size:25px}.intro p{font-size:12px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:22px;gap:7px}.stat{padding:11px 9px;border-radius:9px}.stat .num{font-size:21px}.stat .label{font-size:10px}.stat .mini{display:none}.stat .unit{margin-left:3px;font-size:9px}.filters{gap:8px}.select-wrap{gap:4px;font-size:11px}.select-wrap select{font-size:11px;max-width:128px;padding:7px}.order{font-size:11px}.card{padding:19px 16px;border-radius:11px}.q-title{font-size:17px}.option{padding:12px;font-size:13px;gap:10px}.q-top{margin-bottom:17px}.source-id{font-size:10px}.btn{padding:10px 12px;font-size:12px}.actions{gap:8px}.shortcuts{display:none}.answer{padding:14px}.answer-content{font-size:13px}.right-col{gap:11px}.panel{padding:15px}.footline{font-size:10px}.bank-search{gap:7px}.bank-search input{padding:10px;font-size:13px}.bank-item{padding:14px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
-<link rel="stylesheet" href="sync.css">
+<link rel="stylesheet" href="sync.css?v=shared-1">
 </head>
 <body>
 <div class="app">
@@ -204,6 +204,6 @@ $('reset-progress').onclick=()=>{if(!confirm('确定清空网站的共享作答�
 document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey||mode==='bank'||!queue.length)return;if(e.target.tagName==='BUTTON'&&['Enter',' '].includes(e.key))return;const q=queue[index];if(/^[1-8]$/.test(e.key)){const opts=q.type==='判断题'?['对','错']:q.options.map(o=>o.key);if(opts[Number(e.key)-1]){e.preventDefault();selectOption(opts[Number(e.key)-1]);}}if(e.key==='ArrowRight'){e.preventDefault();move(1);}if(e.key==='ArrowLeft'){e.preventDefault();move(-1);}if(e.key==='Enter'){e.preventDefault();if(submitted)move(1);else if(!revealed&&q.type!=='简答题'&&q.type!=='论述题')submit();}});
 buildQueue();
 </script>
-<script src="sync.js" defer></script>
+<script src="sync.js?v=shared-1" defer></script>
 </body>
 </html>
